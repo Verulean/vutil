@@ -77,12 +77,9 @@
 \NewDocumentCommand{\codefile}{ O{text} m m m o o }
 {
 \begin{dedent}
-\begin{minipage}[ht]{\textwidth}
 \captionof{listing}{#3}
-\vspace{-10pt}
 \label{#4}
 \inputminted[linenos,breaklines,frame=single,firstline=\IfValueTF{#5}{#5}{1},lastline=\IfValueTF{#6}{#6}{-1}]{#1}{#2}
-\end{minipage}
 \end{dedent}%
 }
 
