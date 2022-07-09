@@ -1,0 +1,165 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{vutil}[Verulean's utility package]
+
+% page style packages
+\RequirePackage[margin=1in]{geometry}
+\RequirePackage{fancyhdr}
+
+% math packages
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{mathtools}
+\RequirePackage{siunitx}
+
+% util packages
+\RequirePackage{xparse}
+\RequirePackage[newfloat]{minted}
+\RequirePackage{caption}
+\RequirePackage{verbatim}
+\RequirePackage{fancyvrb}
+
+% color packages
+\RequirePackage{graphicx}
+\RequirePackage[dvipsnames]{xcolor}
+
+
+
+% siunitx settings
+\sisetup{per-mode=symbol, parse-numbers=false}
+
+% Listing environment for code block labels
+\SetupFloatingEnvironment{listing}{name=Listing}
+
+% Util: remove indentation
+\newenvironment{dedent}
+{%
+\par
+\@totalleftmargin=0pt
+\linewidth=\columnwidth
+\parshape 0%
+}
+{%
+\par%
+}
+
+% Code snippet
+% \begin{snippet}[<language>]{<ref>}
+\newenvironment{snippet}[2][text]
+{
+	\VerbatimEnvironment
+	\begin{dedent}
+	\label{#2}
+	\begin{minted}[linenos,breaklines,frame=single]{#1}%
+}
+{%
+	\end{minted}
+	\end{dedent}%
+}
+
+% Code block
+% \begin{code}[<language>]{<caption>}{<ref>}
+\newenvironment{code}[3][text]
+{
+	\VerbatimEnvironment
+	\begin{dedent}
+	\captionsetup{type=listing}
+	\captionof{listing}{#2}
+	\label{#3}
+	\begin{minted}[linenos,breaklines,frame=single]{#1}%
+}
+{%
+	\end{minted}
+	\end{dedent}%
+}
+
+% Code block from file
+% \codefile[<language>]{<file_path>}{<caption>}{<ref>}[<first_line>][<last_line>]
+\NewDocumentCommand{\codefile}{ O{text} m m m o o }
+{
+\begin{dedent}
+\begin{minipage}[ht]{\textwidth}
+\captionof{listing}{#3}
+\vspace{-10pt}
+\label{#4}
+\inputminted[linenos,breaklines,frame=single,firstline=\IfValueTF{#5}{#5}{1},lastline=\IfValueTF{#6}{#6}{-1}]{#1}{#2}
+\end{minipage}
+\end{dedent}%
+}
+
+% In-line code
+% \codet[<language>]{<text>}
+\newcommand{\codet}[2][text]{\mintinline{#1}{#2}}
+
+% Centered figure with lower caption
+% \lfig{<path>}{<image_width>}{<caption>}{<ref>}
+\newcommand{\lfig}[4]
+{%
+\noindent
+\begin{figure}[ht]
+\centering
+\includegraphics[width={#2}\textwidth]{#1}
+\captionof{figure}{#3}
+\label{#4}
+\end{figure}%
+}
+
+% Centered figure without caption
+% \fig{<path>}{<image_width>}{<ref>}
+\newcommand{\fig}[3]
+{%
+\begin{minipage}[t]{\linewidth}
+\centering
+\includegraphics[width={#2}\textwidth]{#1}
+\label{#3}
+\end{minipage}%
+}
+
+% General title
+% \vtitle{<text>}
+\newcommand{\vtitle}[1]{
+\begin{center}
+{\Large #1}
+\end{center}
+}
+
+% Page header
+% \hdr{<left_header>}{<right_header>}
+\newcommand{\hdr}[2]
+{
+\thispagestyle{fancy}
+\lhead{#1}
+\rhead{#2}
+}
+
+% Header for every page
+% \mhdr{<left_header>}{<right_header>}
+\newcommand{\mhdr}[2]
+{
+\pagestyle{fancy}
+\lhead{#1}
+\rhead{#2}
+}
+
+% Green answer highlighting
+% \ans{<text>}
+\newcommand{\ans}{\color{ForestGreen}}
+
+% Augmented matrix
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+% Math stuff
+\DeclarePairedDelimiter\p{\left(}{\right)}
+\let\b\relax
+\DeclarePairedDelimiter\b{\left[}{\right]}
+\let\c\relax
+\DeclarePairedDelimiter\c{\left\{}{\right\}}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\newcommand{\f}[2]{\frac{#1}{#2}}
+\renewcommand{\Im}{\operatorname{Im}}
+\renewcommand{\Re}{\operatorname{Re}}
