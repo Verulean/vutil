@@ -44,11 +44,10 @@
 
 % Code snippet
 % \begin{snippet}[<language>]{<ref>}
-\newenvironment{snippet}[2][text]
+\newenvironment{snippet}[1][text]
 {
 	\VerbatimEnvironment
 	\begin{dedent}
-	\label{#2}
 	\begin{minted}[linenos,breaklines,frame=single]{#1}%
 }
 {%
@@ -101,13 +100,12 @@
 }
 
 % Centered figure without caption
-% \fig{<path>}{<image_width>}{<ref>}
-\newcommand{\fig}[3]
+% \fig{<path>}{<image_width>}
+\newcommand{\fig}[2]
 {%
 \begin{minipage}[t]{\linewidth}
 \centering
 \includegraphics[width={#2}\textwidth]{#1}
-\label{#3}
 \end{minipage}%
 }
 
@@ -138,7 +136,7 @@
 }
 
 % Green answer highlighting
-% \ans{<text>}
+% \ans
 \newcommand{\ans}{\color{ForestGreen}}
 
 % Augmented matrix
@@ -155,7 +153,9 @@
 \DeclarePairedDelimiter\b{\left[}{\right]}
 \let\c\relax
 \DeclarePairedDelimiter\c{\left\{}{\right\}}
+\let\abs\relax
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\let\norm\relax
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}
 \newcommand{\f}[2]{\frac{#1}{#2}}
 \renewcommand{\Im}{\operatorname{Im}}
