@@ -20,7 +20,8 @@ def foo(n: int) -> int:
 
 ### Commands
 #### Code Commands
-- `\codet[<language>]{<text>}`: in-line code text with optional syntax highlighting.
+- `\codet{<text>}`: in-line monospaced text.
+- `\codeth[<language>]{<text>}`: in-line (verbatim) code text with optional syntax highlighting.
 - `\codefile[<language>]{<path>}{<caption>}{<ref>}[<first_line>][<last_line>]`: a code block directly from a file. The optional `<first_line>` and `<last_line>` arguments may be used to only include a particular section of the file.
 
 #### Image Commands
