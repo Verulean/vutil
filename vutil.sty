@@ -84,7 +84,8 @@
 
 % In-line code
 % \codet[<language>]{<text>}
-\newcommand{\codet}[2][text]{\mintinline{#1}{#2}}
+\newcommand{\codet}[1]{\normalfont{\texttt{#1}}}
+\newcommand{\codeth}[2][text]{\mintinline{#1}{#2}}
 
 % Centered figure with lower caption
 % \lfig{<path>}{<image_width>}{<caption>}{<ref>}
